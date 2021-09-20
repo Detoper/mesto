@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesto</title>
+    <link rel="stylesheet" href="./pages/index.css">
+</head>
+
+<body>
+    <div class="root">
+        <header class="header">
+            <img src="./images/header__mesto-logo.svg" alt="Mesto-logo" class="header__logo">
+        </header>
+        <main>
+            <section class="profile">
+                <img src="./images/profile__avatar.jpg" alt="" class="profile__avatar">
+                <div class="profile__info">
+                    <h1 class="profile__title">Жак-Ив Кусто</h1>
+                    <button class="profile__edit-button"></button>
+                    <p class="profile__subtitle">Исследователь океана</p>
+                </div>
+                <button class="profile__add-button"><img src="./images/profile__add-plus.svg" alt="" class="profile__add-plus"></button>
+            </section>
+            <section class="popup">
+                <div class="popup__overlay"></div>
+                <div class="popup__close-button"></div>
+                <form class="popup__container">
+                    <h4 class="popup__title">Редактировать профиль</h4>
+                    <input class="popup__input popup__input_name" type="text" name="name" placeholder="Имя">
+                    <input class="popup__input popup__input_description" type="text" name="description" placeholder="О себе">
+                    <button type="submit" class="popup__save-button">Сохранить</button>
+                </form>
+            </section>
+            <section class="grid-gallery">
+                <div class="grid-gallery__card">
+                    <img src="./images/grid__karachaevsk.jpg" alt="Карачаевск" class="grid-gallery__card-img">
+                    <h2 class="grid-gallery__card-title">Карачаево-черкессия</h2>
+                    <div class="grid-gallery__card-like"></div>
+                </div>
+                <div class="grid-gallery__card">
+                    <img src="./images/grid__Elbrus.png" alt="Гора Эльбрус" class="grid-gallery__card-img">
+                    <h2 class="grid-gallery__card-title">Гора Эльбрус</h2>
+                    <div class="grid-gallery__card-like"></div>
+                </div>
+                <div class="grid-gallery__card">
+                    <img src="./images/grid__Dombai.png" alt="Домбай" class="grid-gallery__card-img">
+                    <h2 class="grid-gallery__card-title">Домбай</h2>
+                    <div class="grid-gallery__card-like"></div>
+                </div>
+                <div class="grid-gallery__card">
+                    <img src="./images/grid__Elbrus.png" alt="Гора Эльбрус" class="grid-gallery__card-img">
+                    <h2 class="grid-gallery__card-title">Гора Эльбрус</h2>
+                    <div class="grid-gallery__card-like"></div>
+                </div>
+                <div class="grid-gallery__card">
+                    <img src="./images/grid__Dombai.png" alt="Домбай" class="grid-gallery__card-img">
+                    <h2 class="grid-gallery__card-title">Домбай</h2>
+                    <div class="grid-gallery__card-like"></div>
+                </div>
+                <div class="grid-gallery__card">
+                    <img src="./images/grid__karachaevsk.jpg" alt="Карачаевск" class="grid-gallery__card-img">
+                    <h2 class="grid-gallery__card-title">Карачаевск</h2>
+                    <div class="grid-gallery__card-like"></div>
+                </div>
+            </section>
+        </main>
+        <footer class="footer">
+            <h2 class="footer__title">&copy; 2020 Mesto Russia</h2>
+        </footer>
+    </div>
+    <script src="./script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+.profile__subtitle {
+    max-width: 400px;
+    margin: 0;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    color: #FFFFFF;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    .profile__subtitle {
+        justify-self: center;
+        margin-left: 28px;
+    }
+}
+
+@media (max-width: 425px) {
+    .profile__subtitle {
+        font-size: 27px;
+        line-height: 33px;
+        font-size: 14px;
+        line-height: 17px;
+    }
+}

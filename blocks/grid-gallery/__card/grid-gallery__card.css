@@ -1,0 +1,10 @@
+.grid-gallery__card {
+    background-color: #fff;
+    width: 282px;
+    height: 361px;
+    display: grid;
+    grid-template-columns: 1fr 82px;
+    grid-template-rows: 282px 1fr;
+    border-radius: 10px;
+    overflow: hidden;
+}

@@ -1,0 +1,18 @@
+.grid-gallery__card-like {
+    background-image: url(../../../images/grid-gallery__like-transparent.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 22px;
+    height: 19px;
+    align-self: center;
+    justify-self: center;
+}
+
+.grid-gallery__card-like:hover {
+    opacity: 0.6;
+}
+
+.grid-gallery__card-like:active {
+    background-image: url(../../../images/grid-gallery__like-black.svg);
+}
