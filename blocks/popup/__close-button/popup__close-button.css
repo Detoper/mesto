@@ -1,4 +1,7 @@
 .popup__close-button {
+    cursor: pointer;
+    background: none;
+    border: none;
     background-image: url(../../../images/Form__Close-Icon.svg);
     background-size: cover;
     background-position: center;

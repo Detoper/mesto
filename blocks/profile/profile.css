@@ -14,10 +14,15 @@
 
 @media (max-width: 768px) {
     .profile {
-        display: grid;
         grid-template-columns: none;
         grid-template-rows: repeat(3, max-content);
         justify-content: center;
-        gap: 23px
+        gap: 23px;
+    }
+}
+
+@media (max-width: 425px) {
+    .profile {
+        margin-bottom: 36px;
     }
 }

@@ -1,3 +1,9 @@
 .profile__add-plus {
     height: 22px;
 }
+
+@media(max-width: 425px) {
+    .profile__add-plus {
+        height: 16px;
+    }
+}

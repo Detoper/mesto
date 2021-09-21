@@ -1,4 +1,7 @@
 .grid-gallery__card-like {
+    cursor: pointer;
+    border: none;
+    background: none;
     background-image: url(../../../images/grid-gallery__like-transparent.svg);
     background-repeat: no-repeat;
     background-size: cover;

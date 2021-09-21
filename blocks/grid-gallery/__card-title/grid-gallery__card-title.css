@@ -1,4 +1,8 @@
 .grid-gallery__card-title {
+    height: 79px;
+    padding-top: 25px;
+    box-sizing: border-box;
+    text-align: center;
     margin: 0 0 0 21px;
     align-self: center;
     font-style: normal;
