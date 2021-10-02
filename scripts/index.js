@@ -48,6 +48,14 @@ const largeImgCloseButton = largeImgPopup.querySelector('.popup__close-button');
 //грид-галерея
 const gridGallery = document.querySelector('.grid-gallery');
 const cardTemplate = gridGallery.querySelector('#card').content;
+
+function openPopup(popup) {
+    popup.classList.add('popup_opened');
+}
+
+function closePopup(popup) {
+    popup.classList.remove('popup_opened');
+}
 //функция добавления картинки (используется в следующей за ней функции)
 function addElement(Element) {
     gridGallery.prepend(Element);
@@ -72,7 +80,7 @@ const createElement = (name, link) => {
             largeImg.src = evt.target.src;
             largeImg.alt = text;
             largeImgTitle.textContent = text;
-            largeImgPopup.classList.add('popup_opened');
+            openPopup(largeImgPopup);
         })
 
         addElement(cardElement);
@@ -81,39 +89,39 @@ const createElement = (name, link) => {
 function openProfPopup() {
     popupName.value = profileTitle.textContent.trim();
     popupDescription.value = profileSubtitle.textContent.trim();
-    profilePopup.classList.add('popup_opened');
+    openPopup(profilePopup);
 }
 
 function savePopup(evt) {
     evt.preventDefault();
     profileTitle.textContent = popupName.value;
     profileSubtitle.textContent = popupDescription.value;
-    closePopup();
+    closeAllPopups();
 }
 //действия с попапом картинки
 function openImgPopup() {
-    imgPopup.classList.add('popup_opened');
+    openPopup(imgPopup);
 }
 
 function addPicture(evt) {
     evt.preventDefault();
     createElement(popupPlaceName.value, popupLink.value);
-    closePopup();
+    closeAllPopups();
     popupPlaceName.value = '';
     popupLink.value = '';
 }
 //общий клоуз
-function closePopup() {
-    profilePopup.classList.remove('popup_opened');
-    imgPopup.classList.remove('popup_opened');
-    largeImgPopup.classList.remove('popup_opened');
+function closeAllPopups() {
+    closePopup(profilePopup);
+    closePopup(imgPopup);
+    closePopup(largeImgPopup);
 }
 //слушатели
 editButton.addEventListener('click', openProfPopup);
 addButton.addEventListener('click', openImgPopup);
-profCloseButton.addEventListener('click', closePopup);
-imgCloseButton.addEventListener('click', closePopup);
-largeImgCloseButton.addEventListener('click', closePopup);
+profCloseButton.addEventListener('click', closeAllPopups);
+imgCloseButton.addEventListener('click', closeAllPopups);
+largeImgCloseButton.addEventListener('click', closeAllPopups);
 profilePopup.addEventListener('submit', savePopup);
 imgPopup.addEventListener('submit', addPicture);
 //цикл добавления при загрузке страницы
