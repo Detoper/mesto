@@ -27,21 +27,5 @@
  @import url(../blocks/popup/__title/popup__title.css);
  @import url(../blocks/popup/__input/popup__input.css);
  @import url(../blocks/popup/__save-button/popup__save-button.css);
- .popup__img-title {
-     margin: 10px 0 0;
-     grid-area: title;
-     font-style: normal;
-     font-weight: normal;
-     font-size: 12px;
-     line-height: 15px;
-     color: #FFFFFF;
-     z-index: 5;
- }
- 
- .popup__large-img {
-     grid-area: content;
-     align-self: center;
-     max-width: 75vw;
-     max-height: 75vh;
-     z-index: 5;
- }
+ @import url(../blocks/popup/__img-title/popup__img-title.css);
+ @import url(../blocks/popup/__large-img/popup__large-img.css);

@@ -57,8 +57,8 @@ function closePopup(popup) {
     popup.classList.remove('popup_opened');
 }
 //функция добавления картинки (используется в следующей за ней функции)
-function addElement(Element) {
-    gridGallery.prepend(Element);
+function addElement(element) {
+    gridGallery.prepend(element);
 }
 const createElement = (name, link) => {
         const cardElement = cardTemplate.querySelector('.grid-gallery__card').cloneNode(true);
@@ -83,7 +83,7 @@ const createElement = (name, link) => {
             openPopup(largeImgPopup);
         })
 
-        addElement(cardElement);
+        return cardElement;
     }
     //действия с попапом профиля
 function openProfPopup() {
@@ -105,7 +105,8 @@ function openImgPopup() {
 
 function addPicture(evt) {
     evt.preventDefault();
-    createElement(popupPlaceName.value, popupLink.value);
+    const el = createElement(popupPlaceName.value, popupLink.value);
+    addElement(el);
     closeAllPopups();
     popupPlaceName.value = '';
     popupLink.value = '';
@@ -127,5 +128,6 @@ imgPopup.addEventListener('submit', addPicture);
 //цикл добавления при загрузке страницы
 
 for (let i = 0; i < initialCards.length; ++i) {
-    createElement(initialCards[i].name, initialCards[i].link);
+    const el = createElement(initialCards[i].name, initialCards[i].link);
+    addElement(el);
 }

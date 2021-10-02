@@ -1,0 +1,7 @@
+.popup__large-img {
+    grid-area: content;
+    align-self: center;
+    max-width: 75vw;
+    max-height: 75vh;
+    z-index: 5;
+}

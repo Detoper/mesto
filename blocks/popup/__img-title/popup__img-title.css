@@ -1,0 +1,10 @@
+.popup__img-title {
+    margin: 10px 0 0;
+    grid-area: title;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 15px;
+    color: #FFFFFF;
+    z-index: 5;
+}
