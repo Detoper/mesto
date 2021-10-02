@@ -8,6 +8,7 @@
     width: 24px;
     height: 24px;
     align-self: end;
+    transition: 0.3s;
 }
 
 @media (max-width: 425px) {

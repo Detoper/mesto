@@ -3,6 +3,7 @@
     padding: 45px 0 60px;
     font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
     min-width: 320px;
+    min-height: 100vh;
 }
 
 @media (max-width: 980px) {

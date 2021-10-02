@@ -1,0 +1,19 @@
+.grid-gallery__card-trash {
+    cursor: pointer;
+    border: none;
+    background: none;
+    background-image: url(../../../images/card__trash.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 19.3px;
+    width: 18px;
+    position: absolute;
+    top: 18px;
+    right: 15px;
+    transition: 0.3s;
+}
+
+.grid-gallery__card-trash:hover {
+    opacity: 0.6;
+}

@@ -10,12 +10,13 @@
     height: 19px;
     align-self: center;
     justify-self: center;
+    transition: 0.3s;
 }
 
 .grid-gallery__card-like:hover {
     opacity: 0.6;
 }
 
-.grid-gallery__card-like:active {
+.grid-gallery__card-like_active {
     background-image: url(../../../images/grid-gallery__like-black.svg);
 }

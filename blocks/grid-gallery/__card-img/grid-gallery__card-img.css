@@ -3,4 +3,9 @@
     height: 282px;
     grid-column-start: 1;
     grid-column-end: 3;
+    transition: 0.3s;
+}
+
+.grid-gallery__card-img:hover {
+    opacity: 0.85;
 }

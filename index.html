@@ -23,7 +23,7 @@
                 </div>
                 <button class="profile__add-button" type="button"><img src="./images/profile__add-plus.svg" alt="плюс" class="profile__add-plus"></button>
             </section>
-            <article class="popup">
+            <article class="popup popup_type_profile">
                 <div class="popup__overlay"></div>
                 <button type="button" class="popup__close-button"></button>
                 <form name="edit-form" class="popup__container">
@@ -33,37 +33,31 @@
                     <button type="submit" class="popup__save-button">Сохранить</button>
                 </form>
             </article>
+            <article class="popup popup_type_image">
+                <div class="popup__overlay"></div>
+                <button type="button" class="popup__close-button"></button>
+                <form name="edit-form" class="popup__container">
+                    <h4 class="popup__title">Новое место</h4>
+                    <input class="popup__input popup__input_type_place-name" type="text" name="place_name" placeholder="Название">
+                    <input class="popup__input popup__input_type_link" type="text" name="link" placeholder="Ссылка на картинку">
+                    <button type="submit" class="popup__save-button">Создать</button>
+                </form>
+            </article>
+            <article class="popup popup_type_large-image">
+                <div class="popup__overlay"></div>
+                <button type="button" class="popup__close-button"></button>
+                <img src="./images/grid__Dombai.png" alt="Домбай" class="popup__large-img ">
+                <h2 class="popup__img-title"></h2>
+            </article>
             <section class="grid-gallery">
-                <div class="grid-gallery__card">
-                    <img src="./images/grid__karachaevsk.jpg" alt="Карачаевск" class="grid-gallery__card-img">
-                    <h2 class="grid-gallery__card-title">Карачаево-черкессия</h2>
-                    <button type="button" class="grid-gallery__card-like"></button>
-                </div>
-                <div class="grid-gallery__card">
-                    <img src="./images/grid__Elbrus.png" alt="Гора Эльбрус" class="grid-gallery__card-img">
-                    <h2 class="grid-gallery__card-title">Гора Эльбрус</h2>
-                    <button type="button" class="grid-gallery__card-like"></button>
-                </div>
+                <template id="card">
                 <div class="grid-gallery__card">
                     <img src="./images/grid__Dombai.png" alt="Домбай" class="grid-gallery__card-img">
-                    <h2 class="grid-gallery__card-title">Домбай</h2>
-                    <button type="button" class="grid-gallery__card-like"></button>
-                </div>
-                <div class="grid-gallery__card">
-                    <img src="./images/grid__Elbrus.png" alt="Гора Эльбрус" class="grid-gallery__card-img">
-                    <h2 class="grid-gallery__card-title">Гора Эльбрус</h2>
-                    <button type="button" class="grid-gallery__card-like"></button>
-                </div>
-                <div class="grid-gallery__card">
-                    <img src="./images/grid__Dombai.png" alt="Домбай" class="grid-gallery__card-img">
-                    <h2 class="grid-gallery__card-title">Домбай</h2>
-                    <button type="button" class="grid-gallery__card-like"></button>
-                </div>
-                <div class="grid-gallery__card">
-                    <img src="./images/grid__karachaevsk.jpg" alt="Карачаевск" class="grid-gallery__card-img">
+                    <button type="button" class="grid-gallery__card-trash"></button>
                     <h2 class="grid-gallery__card-title">Карачаевск</h2>
                     <button type="button" class="grid-gallery__card-like"></button>
                 </div>
+                </template>
             </section>
         </main>
         <footer class="footer">

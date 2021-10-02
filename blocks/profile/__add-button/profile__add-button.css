@@ -11,6 +11,7 @@
     align-items: center;
     justify-content: center;
     justify-self: center;
+    transition: 0.3s;
 }
 
 @media (max-width: 768px) {
