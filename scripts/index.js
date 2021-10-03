@@ -56,36 +56,39 @@ function openPopup(popup) {
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
 }
-//функция добавления картинки (используется в следующей за ней функции)
+//функция добавления картинки
 function addElement(element) {
     gridGallery.prepend(element);
 }
-const createElement = (name, link) => {
-        const cardElement = cardTemplate.querySelector('.grid-gallery__card').cloneNode(true);
-        const cardImg = cardElement.querySelector('.grid-gallery__card-img');
-        cardImg.src = link;
-        cardImg.alt = name;
-        cardElement.querySelector('.grid-gallery__card-title').textContent = name;
-        //слушатель лайка
-        cardElement.querySelector('.grid-gallery__card-like').addEventListener('click', function(evt) {
-            evt.target.classList.toggle('grid-gallery__card-like_active');
-        });
-        //слушатель корзины
-        cardElement.querySelector('.grid-gallery__card-trash').addEventListener('click', function(evt) {
-            evt.target.closest('.grid-gallery__card').remove();
-        });
-        //слушатель на открытие картинки
-        cardElement.querySelector('.grid-gallery__card-img').addEventListener('click', function(evt) {
-            const text = evt.target.closest('.grid-gallery__card').querySelector('.grid-gallery__card-title').textContent;
-            largeImg.src = evt.target.src;
-            largeImg.alt = text;
-            largeImgTitle.textContent = text;
-            openPopup(largeImgPopup);
-        })
 
-        return cardElement;
-    }
-    //действия с попапом профиля
+//функция создания картинки
+const createElement = (name, link) => {
+    const cardElement = cardTemplate.querySelector('.grid-gallery__card').cloneNode(true);
+    const cardImg = cardElement.querySelector('.grid-gallery__card-img');
+    cardImg.src = link;
+    cardImg.alt = name;
+    cardElement.querySelector('.grid-gallery__card-title').textContent = name;
+    //слушатель лайка
+    cardElement.querySelector('.grid-gallery__card-like').addEventListener('click', function(evt) {
+        evt.target.classList.toggle('grid-gallery__card-like_active');
+    });
+    //слушатель корзины
+    cardElement.querySelector('.grid-gallery__card-trash').addEventListener('click', function(evt) {
+        evt.target.closest('.grid-gallery__card').remove();
+    });
+    //слушатель на открытие картинки
+    cardElement.querySelector('.grid-gallery__card-img').addEventListener('click', function(evt) {
+        const text = evt.target.closest('.grid-gallery__card').querySelector('.grid-gallery__card-title').textContent;
+        largeImg.src = evt.target.src;
+        largeImg.alt = text;
+        largeImgTitle.textContent = text;
+        openPopup(largeImgPopup);
+    })
+
+    return cardElement;
+}
+
+//действия с попапом профиля
 function openProfPopup() {
     popupName.value = profileTitle.textContent.trim();
     popupDescription.value = profileSubtitle.textContent.trim();
@@ -96,7 +99,11 @@ function savePopup(evt) {
     evt.preventDefault();
     profileTitle.textContent = popupName.value;
     profileSubtitle.textContent = popupDescription.value;
-    closeAllPopups();
+    closeProfilePopup();
+}
+
+function closeProfilePopup() {
+    closePopup(profilePopup);
 }
 //действия с попапом картинки
 function openImgPopup() {
@@ -107,22 +114,25 @@ function addPicture(evt) {
     evt.preventDefault();
     const el = createElement(popupPlaceName.value, popupLink.value);
     addElement(el);
-    closeAllPopups();
+    closeImgPopup();
     popupPlaceName.value = '';
     popupLink.value = '';
 }
-//общий клоуз
-function closeAllPopups() {
-    closePopup(profilePopup);
+
+function closeImgPopup() {
     closePopup(imgPopup);
+}
+
+// клоуз большой картинки
+function closeLargeImgPopup() {
     closePopup(largeImgPopup);
 }
 //слушатели
 editButton.addEventListener('click', openProfPopup);
 addButton.addEventListener('click', openImgPopup);
-profCloseButton.addEventListener('click', closeAllPopups);
-imgCloseButton.addEventListener('click', closeAllPopups);
-largeImgCloseButton.addEventListener('click', closeAllPopups);
+profCloseButton.addEventListener('click', closeProfilePopup);
+imgCloseButton.addEventListener('click', closeImgPopup);
+largeImgCloseButton.addEventListener('click', closeLargeImgPopup);
 profilePopup.addEventListener('submit', savePopup);
 imgPopup.addEventListener('submit', addPicture);
 //цикл добавления при загрузке страницы
