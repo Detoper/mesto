@@ -2,7 +2,7 @@
     height: 27px;
     border: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-    margin: 0 0 30px;
+    margin: 0;
     width: 358px;
 }
 
@@ -10,4 +10,8 @@
     .popup__input {
         width: 238px;
     }
+}
+
+.popup__input_state_valid {
+    border-bottom: 1px solid #FF0000;
 }

@@ -53,8 +53,15 @@ function openPopup(popup) {
     popup.classList.add('popup_opened');
 }
 
-function closePopup(popup) {
-    popup.classList.remove('popup_opened');
+function closePopup() {
+    const activePopup = document.querySelector('.popup_opened');
+    activePopup.classList.remove('popup_opened');
+}
+
+function closePopupEsc(evt) {
+    if (evt.key === 'Escape') {
+        closePopup();
+    }
 }
 //функция добавления картинки
 function addElement(element) {
@@ -99,12 +106,10 @@ function savePopup(evt) {
     evt.preventDefault();
     profileTitle.textContent = popupName.value;
     profileSubtitle.textContent = popupDescription.value;
-    closeProfilePopup();
+    closePopup;
 }
 
-function closeProfilePopup() {
-    closePopup(profilePopup);
-}
+
 //действия с попапом картинки
 function openImgPopup() {
     openPopup(imgPopup);
@@ -114,30 +119,34 @@ function addPicture(evt) {
     evt.preventDefault();
     const el = createElement(popupPlaceName.value, popupLink.value);
     addElement(el);
-    closeImgPopup();
+    closePopup;
     popupPlaceName.value = '';
     popupLink.value = '';
 }
 
-function closeImgPopup() {
-    closePopup(imgPopup);
-}
 
-// клоуз большой картинки
-function closeLargeImgPopup() {
-    closePopup(largeImgPopup);
-}
 //слушатели
 editButton.addEventListener('click', openProfPopup);
 addButton.addEventListener('click', openImgPopup);
-profCloseButton.addEventListener('click', closeProfilePopup);
-imgCloseButton.addEventListener('click', closeImgPopup);
-largeImgCloseButton.addEventListener('click', closeLargeImgPopup);
 profilePopup.addEventListener('submit', savePopup);
 imgPopup.addEventListener('submit', addPicture);
+document.addEventListener('keydown', closePopupEsc);
 //цикл добавления при загрузке страницы
 
 for (let i = 0; i < initialCards.length; ++i) {
     const el = createElement(initialCards[i].name, initialCards[i].link);
     addElement(el);
 }
+
+//установка закрытий на кнопки и слой
+const setCloseListeners = () => {
+    const popups = Array.from(document.querySelectorAll('.popup'));
+    popups.forEach(popupElement => {
+        const overlay = popupElement.querySelector('.popup__overlay');
+        overlay.addEventListener('click', closePopup);
+        const closeButton = popupElement.querySelector('.popup__close-button');
+        closeButton.addEventListener('click', closePopup);
+    });
+};
+
+setCloseListeners();
