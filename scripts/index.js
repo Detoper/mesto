@@ -106,7 +106,7 @@ function savePopup(evt) {
     evt.preventDefault();
     profileTitle.textContent = popupName.value;
     profileSubtitle.textContent = popupDescription.value;
-    closePopup;
+    closePopup();
 }
 
 
@@ -119,7 +119,7 @@ function addPicture(evt) {
     evt.preventDefault();
     const el = createElement(popupPlaceName.value, popupLink.value);
     addElement(el);
-    closePopup;
+    closePopup();
     popupPlaceName.value = '';
     popupLink.value = '';
 }
