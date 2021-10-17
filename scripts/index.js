@@ -51,11 +51,13 @@ const cardTemplate = gridGallery.querySelector('#card').content;
 
 function openPopup(popup) {
     popup.classList.add('popup_opened');
+    document.addEventListener('keydown', closePopupEsc);
 }
 
 function closePopup() {
     const activePopup = document.querySelector('.popup_opened');
     activePopup.classList.remove('popup_opened');
+    document.removeEventListener('keydown', closePopupEsc);
 }
 
 function closePopupEsc(evt) {
@@ -117,8 +119,8 @@ function openImgPopup() {
 
 function addPicture(evt) {
     evt.preventDefault();
-    const el = createElement(popupPlaceName.value, popupLink.value);
-    addElement(el);
+    const pictureElement = createElement(popupPlaceName.value, popupLink.value);
+    addElement(pictureElement);
     closePopup();
     popupPlaceName.value = '';
     popupLink.value = '';
@@ -130,13 +132,6 @@ editButton.addEventListener('click', openProfPopup);
 addButton.addEventListener('click', openImgPopup);
 profilePopup.addEventListener('submit', savePopup);
 imgPopup.addEventListener('submit', addPicture);
-document.addEventListener('keydown', closePopupEsc);
-//цикл добавления при загрузке страницы
-
-for (let i = 0; i < initialCards.length; ++i) {
-    const el = createElement(initialCards[i].name, initialCards[i].link);
-    addElement(el);
-}
 
 //установка закрытий на кнопки и слой
 const setCloseListeners = () => {
@@ -150,3 +145,9 @@ const setCloseListeners = () => {
 };
 
 setCloseListeners();
+
+//цикл добавления при загрузке страницы
+initialCards.forEach(cardElement => {
+    const pictureElement = createElement(cardElement.name, cardElement.link);
+    addElement(pictureElement);
+});
