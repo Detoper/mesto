@@ -33,9 +33,16 @@ function setEventListeners(formElement, list) {
     const inputList = Array.from(formElement.querySelectorAll(list.inputSelector));
     const submitButton = formElement.querySelector(list.submitButtonSelector);
     inputList.forEach(inputElement => {
+        //проверка валидности при вводе символов пользователем
         inputElement.addEventListener('input', (evt) => {
             const isFormValid = formElement.checkValidity();
             checkInputValidity(formElement, inputElement, list);
+            toggleButtonState(submitButton, isFormValid, list);
+        });
+        //проверка валидности при открытии попапа добавления картинки
+        const addButton = document.querySelector('.profile__add-button');
+        addButton.addEventListener('click', (evt) => {
+            const isFormValid = formElement.checkValidity();
             toggleButtonState(submitButton, isFormValid, list);
         });
     });
