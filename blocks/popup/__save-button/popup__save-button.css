@@ -27,13 +27,3 @@
         height: 46px;
     }
 }
-
-.popup__save-button_disabled {
-    cursor: none;
-    background: rgba(0, 0, 0, 0.8);
-    cursor: default;
-}
-
-.popup__save-button_disabled:hover {
-    opacity: 1;
-}
