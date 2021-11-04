@@ -1,3 +1,5 @@
+import { Card } from './card.js'
+import { FormValidator } from './validate.js'
 //массив начальных данных
 const initialCards = [{
         name: 'Архыз',
@@ -24,6 +26,15 @@ const initialCards = [{
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
 ];
+//объект с селекторами для валидации
+const validationList = {
+    formSelector: '.popup__container',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__save-button',
+    inactiveButtonClass: 'popup__save-button_disabled',
+    inputErrorClass: 'popup__input_state_valid',
+    errorClass: 'popup__error_visible'
+};
 //кнопки из профиля, данные профиля
 const profile = document.querySelector('.profile');
 const editButton = profile.querySelector('.profile__edit-button');
@@ -47,7 +58,7 @@ const largeImgTitle = largeImgPopup.querySelector('.popup__img-title');
 const largeImgCloseButton = largeImgPopup.querySelector('.popup__close-button');
 //грид-галерея
 const gridGallery = document.querySelector('.grid-gallery');
-const cardTemplate = gridGallery.querySelector('#card').content;
+
 
 function openPopup(popup) {
     popup.classList.add('popup_opened');
@@ -68,33 +79,6 @@ function closePopupEsc(evt) {
 //функция добавления картинки
 function addElement(element) {
     gridGallery.prepend(element);
-}
-
-//функция создания картинки
-const createElement = (name, link) => {
-    const cardElement = cardTemplate.querySelector('.grid-gallery__card').cloneNode(true);
-    const cardImg = cardElement.querySelector('.grid-gallery__card-img');
-    cardImg.src = link;
-    cardImg.alt = name;
-    cardElement.querySelector('.grid-gallery__card-title').textContent = name;
-    //слушатель лайка
-    cardElement.querySelector('.grid-gallery__card-like').addEventListener('click', function(evt) {
-        evt.target.classList.toggle('grid-gallery__card-like_active');
-    });
-    //слушатель корзины
-    cardElement.querySelector('.grid-gallery__card-trash').addEventListener('click', function(evt) {
-        evt.target.closest('.grid-gallery__card').remove();
-    });
-    //слушатель на открытие картинки
-    cardElement.querySelector('.grid-gallery__card-img').addEventListener('click', function(evt) {
-        const text = evt.target.closest('.grid-gallery__card').querySelector('.grid-gallery__card-title').textContent;
-        largeImg.src = evt.target.src;
-        largeImg.alt = text;
-        largeImgTitle.textContent = text;
-        openPopup(largeImgPopup);
-    })
-
-    return cardElement;
 }
 
 //действия с попапом профиля
@@ -119,8 +103,9 @@ function openImgPopup() {
 
 function addPicture(evt) {
     evt.preventDefault();
-    const pictureElement = createElement(popupPlaceName.value, popupLink.value);
-    addElement(pictureElement);
+    const card = new Card(popupPlaceName.value, popupLink.value, '#card');
+    const cardEl = card.generateCard();
+    addElement(cardEl);
     closePopup();
     popupPlaceName.value = '';
     popupLink.value = '';
@@ -147,7 +132,14 @@ const setCloseListeners = () => {
 setCloseListeners();
 
 //цикл добавления при загрузке страницы
-initialCards.forEach(cardElement => {
-    const pictureElement = createElement(cardElement.name, cardElement.link);
-    addElement(pictureElement);
+initialCards.forEach((cardElement) => {
+    const card = new Card(cardElement.name, cardElement.link, '#card');
+    const cardEl = card.generateCard();
+    addElement(cardEl);
+});
+//цикл запуска валидации форм
+const forms = Array.from(document.querySelectorAll(validationList.formSelector));
+forms.forEach((formElement) => {
+    const formValidator = new FormValidator(validationList, formElement);
+    formValidator.enableValidation();
 });
