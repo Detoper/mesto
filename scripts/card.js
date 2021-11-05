@@ -1,8 +1,9 @@
 export class Card {
-    constructor(name, link, cardSelector) {
+    constructor(name, link, cardSelector, openZoom) {
         this._name = name;
         this._link = link;
         this._cardSelector = cardSelector;
+        this._openZoom = openZoom;
     }
     _getCardElement() {
         const cardElement = document
@@ -20,31 +21,22 @@ export class Card {
             this._deleteCard();
         });
         this._element.querySelector('.grid-gallery__card-img').addEventListener('click', () => {
-            this._openZoom();
+            this._openZoom(this._name, this._link);
         });
     }
     _likeToggle() {
         this._element.querySelector('.grid-gallery__card-like').classList.toggle('grid-gallery__card-like_active');
     }
     _deleteCard() {
-        this._element.querySelector('.grid-gallery__card-trash').closest('.grid-gallery__card').remove();
+        this._element.remove();
     }
-    _openZoom() {
-        const largeImgPopup = document.querySelector('.popup_type_large-image');
-        const largeImg = largeImgPopup.querySelector('.popup__large-img');
-        const largeImgTitle = largeImgPopup.querySelector('.popup__img-title');
-        const largeImgCloseButton = largeImgPopup.querySelector('.popup__close-button');
-        largeImg.src = this._link;
-        largeImg.alt = this._name;
-        largeImgTitle.textContent = this._name;
-        largeImgPopup.classList.add('popup_opened');
-        document.addEventListener('keydown', closePopupEsc);
-    }
+
     generateCard() {
         this._element = this._getCardElement();
         this._setEventListeners();
-        this._element.querySelector('.grid-gallery__card-img').src = this._link;
-        this._element.querySelector('.grid-gallery__card-img').alt = this._name;
+        const cardImg = this._element.querySelector('.grid-gallery__card-img');
+        cardImg.src = this._link;
+        cardImg.alt = this._name;
         this._element.querySelector('.grid-gallery__card-title').textContent = this._name;
         return this._element;
     }
