@@ -129,7 +129,7 @@ function openZoom(name, link) {
 editButton.addEventListener('click', openProfPopup);
 addButton.addEventListener('click', () => {
     openImgPopup();
-    imgFormValidator.enableValidation();
+    imgFormValidator.toggleButtonState();
 });
 profilePopup.addEventListener('submit', submitProfileForm);
 imgPopup.addEventListener('submit', addPicture);
@@ -151,11 +151,6 @@ setCloseListeners();
 initialCards.forEach((cardElement) => {
     addCard(cardElement.name, cardElement.link, '#card', openZoom);
 });
-//запуск валидации форм
+//запуск валидации
 profileFormValidator.enableValidation();
 imgFormValidator.enableValidation();
-const forms = Array.from(document.querySelectorAll(validationList.formSelector));
-forms.forEach((formElement) => {
-    const formValidator = new FormValidator(validationList, formElement);
-    formValidator.enableValidation();
-});
