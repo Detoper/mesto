@@ -1,5 +1,5 @@
 export class Card {
-    constructor(name, link, cardSelector, openZoom) {
+    constructor(name, link, cardSelector, { openZoom }) {
         this._name = name;
         this._link = link;
         this._cardSelector = cardSelector;
