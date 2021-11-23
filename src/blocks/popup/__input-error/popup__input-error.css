@@ -6,6 +6,7 @@
     color: #FF0000;
     margin: 5px 36px 13px;
     align-self: start;
+    height: 15px;
 }
 
 @media (max-width: 580px) {

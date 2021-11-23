@@ -11,7 +11,8 @@ export class PopupWithImage extends Popup {
         largeImg.src = link;
         largeImg.alt = name;
         largeImgTitle.textContent = name;
-        this._popup.classList.add('popup_opened');
+        const openPopup = super.open();
+        return openPopup;
     }
 
 }

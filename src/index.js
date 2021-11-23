@@ -3,7 +3,7 @@ import { FormValidator } from './components/FormValidator.js'
 import { Section } from './components/Section.js'
 import { PopupWithImage } from './components/PopupWithImage.js'
 import { PopupWithForm } from './components/PopupWithForm.js'
-import './index.css';
+//import './index.css';
 //массив начальных данных
 const initialCards = [{
         name: 'Архыз',
@@ -47,52 +47,58 @@ const profileTitle = profile.querySelector('.profile__title');
 const profileSubtitle = profile.querySelector('.profile__subtitle');
 //попап профиля
 const profileForm = document.querySelector('.popup_type_profile').querySelector('.popup__container');
+const profileFormName = profileForm.querySelector('.popup__input_type_name');
+const profileFormInfo = profileForm.querySelector('.popup__input_type_info');
 //попап добавления картинки
 const imgForm = document.querySelector('.popup_type_image').querySelector('.popup__container');
+const imgFormName = imgForm.querySelector('.popup__input_type_name');
+const imgFormInfo = imgForm.querySelector('.popup__input_type_info');
 //классы-валидаторы для каждой из форм
 const profileFormValidator = new FormValidator(validationList, profileForm);
 const imgFormValidator = new FormValidator(validationList, imgForm);
+
+//функция создания карточки
+function createCard(name, link) {
+    const card = new Card(name, link, '#card', {
+        openZoom: (name, link) => {
+            largeImgPopup.open(name, link);
+        }
+    });
+    const cardEl = card.generateCard();
+    return cardEl;
+}
 //класс добавления элементов на страницу имеет 2 метода: addItem(), который добавляет элемент в контейнер с указанным селектором
 // и renderItems(), перебирающий указанный массив, преобразующий их функцией renderer, и добавляющий в контейнер методом addItem()
 const cardsList = new Section({
         items: initialCards,
         renderer: (cardElement) => {
-            //openZoom использует метод класса largeImgPopup для открытия картинки
-            const card = new Card(cardElement.name, cardElement.link, '#card', {
-                openZoom: (name, link) => {
-                    largeImgPopup.open(name, link);
-                }
-            });
-            const cardEl = card.generateCard();
+            const cardEl = createCard(cardElement.name, cardElement.link);
             cardsList.addItem(cardEl);
         },
     },
     '.grid-gallery'
 );
-
+const data = { name: 'Vlad', info: 'samets' }
 const largeImgPopup = new PopupWithImage('.popup_type_large-image');
+//При открытии попап использует объект данных. Попап профиля берёт данные из профиля, а попап картинки-пустые поля.
+const profilePopup = new PopupWithForm('.popup_type_profile', profileFormName,
+    profileFormInfo, { name: profileTitle.textContent, info: profileSubtitle.textContent }, {
+        submit: (name, description) => {
+            profileTitle.textContent = name;
+            profileSubtitle.textContent = description;
+        },
 
-const profilePopup = new PopupWithForm('.popup_type_profile', {
-    submit: (name, description) => {
-        //this._getInputValues();
-        profileTitle.textContent = name.value;
-        profileSubtitle.textContent = description.value;
-    }
-})
+    })
 
-const addCardPopup = new PopupWithForm('.popup_type_image', {
-    submit: (name, link) => {
-        //this._getInputValues();
-        const card = new Card(name.value, link.value, '#card', {
-            openZoom: (name, link) => {
-                largeImgPopup.open(name, link);
-            }
-        });
-        const cardEl = card.generateCard();
-        cardsList.addItem(cardEl);
-        addCardPopup.close();
-    }
-})
+const addCardPopup = new PopupWithForm('.popup_type_image', imgFormName,
+    imgFormInfo, { name: '', info: '' }, {
+        submit: (name, link) => {
+            const cardEl = createCard(name, link);
+            cardsList.addItem(cardEl);
+            addCardPopup.close();
+        },
+
+    })
 
 //слушатели
 editButton.addEventListener('click', () => {

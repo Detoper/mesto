@@ -1,8 +1,8 @@
 # Проект: соцсеть "Mesto"
 
-[Ссылка на проект](https://detoper.github.io/mesto/)
+[Ссылка на проект]()
 
-### Обзор
+### Обзорhttps://detoper.github.io/mesto/
 * Интро
 * Figma
 * Картинки
