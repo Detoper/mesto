@@ -3,7 +3,7 @@ import { FormValidator } from './components/FormValidator.js'
 import { Section } from './components/Section.js'
 import { PopupWithImage } from './components/PopupWithImage.js'
 import { PopupWithForm } from './components/PopupWithForm.js'
-//import './index.css';
+import './index.css';
 //массив начальных данных
 const initialCards = [{
         name: 'Архыз',
