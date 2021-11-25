@@ -1,18 +1,16 @@
 import { Popup } from './Popup.js'
 
 export class PopupWithForm extends Popup {
-    constructor(popupSelector, nameInput, infoInput, InfoData, { submit }) {
+    constructor(popupSelector, nameInput, infoInput, { submit }) {
         super(popupSelector);
         this.submit = submit;
         this.name = nameInput;
         this.info = infoInput;
-        this.nameData = InfoData.name;
-        this.infoData = InfoData.info;
     }
 
-    open() {
-        this.name.value = this.nameData;
-        this.info.value = this.infoData;
+    open(InfoData) {
+        this.name.value = InfoData.name;
+        this.info.value = InfoData.info;
         const openPopup = super.open();
         return openPopup;
 
@@ -28,7 +26,8 @@ export class PopupWithForm extends Popup {
         const listeners = super.setEventListeners();
         this._popup.querySelector('.popup__save-button').addEventListener('click', (evt) => {
             evt.preventDefault();
-            this.submit(this._getInputValues().name, this._getInputValues().info);
+            const values = this._getInputValues();
+            this.submit(values.name, values.info);
             this.close();
         });
         return listeners;

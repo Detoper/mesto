@@ -82,7 +82,7 @@ const cardsList = new Section({
 const largeImgPopup = new PopupWithImage('.popup_type_large-image');
 //При открытии попап использует объект данных. Попап профиля берёт данные из профиля, а попап картинки-пустые поля.
 const profilePopup = new PopupWithForm('.popup_type_profile', profileFormName,
-    profileFormInfo, { name: profileTitle.textContent, info: profileSubtitle.textContent }, {
+    profileFormInfo, {
         submit: (name, description) => {
             profileTitle.textContent = name;
             profileSubtitle.textContent = description;
@@ -91,7 +91,7 @@ const profilePopup = new PopupWithForm('.popup_type_profile', profileFormName,
     })
 
 const addCardPopup = new PopupWithForm('.popup_type_image', imgFormName,
-    imgFormInfo, { name: '', info: '' }, {
+    imgFormInfo, {
         submit: (name, link) => {
             const cardEl = createCard(name, link);
             cardsList.addItem(cardEl);
@@ -102,12 +102,12 @@ const addCardPopup = new PopupWithForm('.popup_type_image', imgFormName,
 
 //слушатели
 editButton.addEventListener('click', () => {
-    profilePopup.open();
+    profilePopup.open({ name: profileTitle.textContent, info: profileSubtitle.textContent });
 });
 
 addButton.addEventListener('click', () => {
     imgFormValidator.toggleButtonState()
-    addCardPopup.open();
+    addCardPopup.open({ name: '', info: '' });
 
 });
 addCardPopup.setEventListeners();
