@@ -1,8 +1,8 @@
 .header {
     display: flex;
     flex-direction: row;
-    justify-content: start;
-    align-items: start;
+    justify-content: flex-start;
+    align-items: flex-start;
     max-width: 880px;
     border-bottom: 1px solid rgba(84, 84, 84, 0.7);
     margin: 0 auto 40px;

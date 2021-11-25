@@ -15,6 +15,7 @@ export class PopupWithForm extends Popup {
         this.info.value = this.infoData;
         const openPopup = super.open();
         return openPopup;
+
     }
     _getInputValues() {
         const data = {

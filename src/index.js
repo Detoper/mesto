@@ -78,7 +78,7 @@ const cardsList = new Section({
     },
     '.grid-gallery'
 );
-const data = { name: 'Vlad', info: 'samets' }
+
 const largeImgPopup = new PopupWithImage('.popup_type_large-image');
 //При открытии попап использует объект данных. Попап профиля берёт данные из профиля, а попап картинки-пустые поля.
 const profilePopup = new PopupWithForm('.popup_type_profile', profileFormName,
@@ -106,8 +106,9 @@ editButton.addEventListener('click', () => {
 });
 
 addButton.addEventListener('click', () => {
+    imgFormValidator.toggleButtonState()
     addCardPopup.open();
-    imgFormValidator.toggleButtonState();
+
 });
 addCardPopup.setEventListeners();
 profilePopup.setEventListeners();

@@ -23,6 +23,7 @@ export class FormValidator {
     }
 
     toggleButtonState() {
+        this._isFormValid = this._formElement.checkValidity();
         if (this._isFormValid) {
             this._submitButton.classList.remove(this._inactiveButtonClass);
             this._submitButton.disabled = false;
@@ -32,7 +33,7 @@ export class FormValidator {
         }
     }
     _setEventListeners() {
-        //проверка валидности при вводе символов пользователем
+
         this._inputList.forEach(inputElement => {
             this._inputElement = inputElement;
             this._inputElement.addEventListener('input', () => {
