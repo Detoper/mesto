@@ -1,0 +1,8 @@
+.grid-gallery__card-likeinfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    align-self: center;
+    justify-self: center;
+}

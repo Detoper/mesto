@@ -5,26 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mesto</title>
-    <!-- <link rel="stylesheet" href="./index.css"> -->
 </head>
 
 <body>
     <div class="root">
         <header class="header">
             <img src="<%=require('./images/header__mesto-logo.svg')%>" alt="Место-логотип" class="header__logo">
-            <!-- <img src="./images/header__mesto-logo.svg" alt="Место-логотип" class="header__logo"> -->
         </header>
         <main>
             <section class="profile">
-                <img src="<%=require('./images/profile__avatar.jpg')%>" alt="Аватарка" class="profile__avatar">
-                <!-- <img src="./images/profile__avatar.jpg" alt="Аватарка" class="profile__avatar"> -->
+                <button type="button" class="profile__avatar-button">
+                <img src="" alt="Аватарка" class="profile__avatar">
+                </button>
                 <div class="profile__info">
-                    <h1 class="profile__title">Жак-Ив Кусто</h1>
+                    <h1 class="profile__title"></h1>
                     <button class="profile__edit-button" type="button"></button>
-                    <p class="profile__subtitle">Исследователь океана</p>
+                    <p class="profile__subtitle"></p>
                 </div>
-                <button class="profile__add-button" type="button"><img src="<%=require('./images/profile__add-plus.svg')%>" alt="плюс" class="profile__add-plus"></button>
-                <!-- <button class="profile__add-button" type="button"><img src="./images/profile__add-plus.svg" alt="плюс" class="profile__add-plus"></button> -->
+                <button class="profile__add-button" type="button">
+                    <img src="<%=require('./images/profile__add-plus.svg')%>" alt="плюс" class="profile__add-plus">
+                </button>
+
             </section>
             <article class="popup popup_type_profile">
                 <div class="popup__overlay"></div>
@@ -53,18 +54,38 @@
             <article class="popup popup_type_large-image">
                 <div class="popup__overlay"></div>
                 <button type="button" class="popup__close-button"></button>
-                <img src="<%=require('./images/grid__Dombai.png')%>" alt="Домбай" class="popup__large-img ">
-                <!-- <img src="./images/grid__Dombai.png" alt="Домбай" class="popup__large-img "> -->
+                <img src="<%=require('./images/grid__Dombai.png')%>" alt="Домбай" class="popup__large-img">
                 <h2 class="popup__img-title"></h2>
+            </article>
+            <article class="popup popup_type_avatar">
+                <div class="popup__overlay"></div>
+                <button type="button" class="popup__close-button"></button>
+                <form name="avatar-form" class="popup__container" novalidate>
+                    <h4 class="popup__title">Обновить аватар</h4>
+                    <input class="popup__input popup__input_type_avatar" id="avatar-input" type="url" name="link" placeholder="Ссылка на картинку" required>
+                    <span class="popup__input-error avatar-input-error"></span>
+                    <button type="submit" class="popup__save-button">Сохранить</button>
+                </form>
+            </article>
+            <article class="popup popup_type_confirm">
+                <div class="popup__overlay"></div>
+                <button type="button" class="popup__close-button"></button>
+                <form name="confirm-form" class="popup__container" novalidate>
+                    <h4 class="popup__title">Вы уверены?</h4>
+                    <button type="submit" class="popup__save-button">Да</button>
+                </form>
             </article>
             <section class="grid-gallery">
                 <template id="card">
                 <div class="grid-gallery__card">
-                    <img src="<%=require('./images/grid__Dombai.png')%>" alt="Домбай" class="grid-gallery__card-img">
-                    <!-- <img src="./images/grid__Dombai.png" alt="Домбай" class="grid-gallery__card-img"> -->
-                    <button type="button" class="grid-gallery__card-trash"></button>
+                    <img src="<%=require('./images/grid__Dombai.png')%>" alt="Картинка" class="grid-gallery__card-img">
+                                 <button type="button" class="grid-gallery__card-trash"></button>
                     <h2 class="grid-gallery__card-title">Карачаевск</h2>
-                    <button type="button" class="grid-gallery__card-like"></button>
+                    <div class="grid-gallery__card-likeinfo">
+                        <button type="button" class="grid-gallery__card-like"></button>
+                        <p class="grid-gallery__card-likecounter">0</p>
+                    </div>
+                    
                 </div>
                 </template>
             </section>
@@ -73,7 +94,6 @@
             <p class="footer__title">&copy; 2020 Mesto Russia</p>
         </footer>
     </div>
-    <!-- <script type="module" src="./index.js"></script> -->
 </body>
 
 </html>
