@@ -13,8 +13,4 @@ export class PopupWithImage extends Popup {
         largeImgTitle.textContent = name;
         super.open();
     }
-    close() {
-        this._popup.classList.remove('popup_opened');
-        document.removeEventListener('keydown', this._handleEscClose);
-    }
 }

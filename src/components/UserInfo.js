@@ -13,11 +13,11 @@ export class UserInfo {
         return userInfo;
     }
     setUserInfo(userInfo) {
-        this._nameInput.textContent = userInfo.name;
-        this._aboutInput.textContent = userInfo.about;
+        this._nameInput.textContent = userInfo.name ? userInfo.name : '';
+        this._aboutInput.textContent = userInfo.about ? userInfo.about : '';
     }
 
     setUserAvatar(userInfo) {
-        this._avatarInput.src = userInfo.avatar;
+        this._avatarInput.src = userInfo.avatar ? userInfo.avatar : '';
     }
 }

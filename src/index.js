@@ -123,10 +123,13 @@ const cardsList = new Section({
 const largeImgPopup = new PopupWithImage('.popup_type_large-image');
 
 const confirmPopup = new PopupWithConfirm('.popup_type_confirm', {
-    submit: (data, removeFunc) => {
+    submit: (data, cl) => {
         console.log(data);
         api.deleteCard(data.id)
-            .then(() => removeFunc(data._element))
+            .then(() => {
+                cl.removeFunc(data._element);
+                cl.close();
+            })
             .catch((err) => {
                 console.log('Ошибка: ', err);
             });

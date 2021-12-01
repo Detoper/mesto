@@ -5,15 +5,16 @@ export class PopupWithForm extends Popup {
         super(popupSelector);
         this._submit = submit;
         this._inputList = this._popup.querySelectorAll('.popup__input');
+        this._popupForm = this._popup.querySelector('.popup__container');
     }
 
-    open(InfoData) {
+    open(infoData) {
         //цикл заполнения формы при открытии: проверяем, совпадает ли имя свойства объекта, поданного на вход, с 
         //именем поля инпут. если да - записываем значение свойства в это поле
         this._inputList.forEach((input) => {
-            for (let key in InfoData) {
+            for (let key in infoData) {
                 if (key === input.name) {
-                    input.value = InfoData[key];
+                    input.value = infoData[key];
                 }
             }
         })
@@ -34,5 +35,10 @@ export class PopupWithForm extends Popup {
             this._submit(values, this);
         });
         super.setEventListeners();
+    }
+
+    close() {
+        this._popupForm.reset();
+        super.close();
     }
 }
