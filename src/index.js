@@ -2,9 +2,8 @@ import { Card } from './components/Card.js'
 import { FormValidator } from './components/FormValidator.js'
 import { Section } from './components/Section.js'
 import { PopupWithImage } from './components/PopupWithImage.js'
-import { PopupWithFormTwoRows } from './components/PopupWithFormTwoRows.js'
-import { PopupWithFormOneRow } from './components/PopupWithFormOneRow.js'
 import { PopupWithForm } from './components/PopupWithForm.js'
+import { PopupWithConfirm } from './components/PopupWithConfirm.js'
 import { UserInfo } from './components/UserInfo.js'
 import { Api } from './components/Api.js'
 import './index.css';
@@ -28,15 +27,10 @@ const profileSubtitle = profile.querySelector('.profile__subtitle');
 const avatar = profile.querySelector('.profile__avatar');
 //попап профиля
 const profileForm = document.querySelector('.popup_type_profile').querySelector('.popup__container');
-const profileFormName = profileForm.querySelector('.popup__input_type_name');
-const profileFormInfo = profileForm.querySelector('.popup__input_type_info');
 //попап аватарки
 const avatarForm = document.querySelector('.popup_type_avatar').querySelector('.popup__container');
-const avatarFormLink = avatarForm.querySelector('.popup__input_type_avatar');
 //попап добавления картинки
 const imgForm = document.querySelector('.popup_type_image').querySelector('.popup__container');
-const imgFormName = imgForm.querySelector('.popup__input_type_name');
-const imgFormInfo = imgForm.querySelector('.popup__input_type_info');
 
 
 const api = new Api({
@@ -52,26 +46,22 @@ let userId = '';
 Promise.all([api.getInitialCards(), api.getUserData()])
     .then(([cardsData, userData]) => {
         userId = userData._id;
+        console.log(userData);
+        console.log(cardsData);
         cardsList.renderItems(cardsData);
         userInfo.setUserInfo(userData);
-        avatar.src = userData.avatar;
+        userInfo.setUserAvatar(userData);
     })
-    //функция обновления карточек и её вызов через каждые 20 секунд
-function getInitialCards() {
-    console.log('updating...')
-    api.getInitialCards()
-        .then((cardsData) => {
-            cardsList.renderItems(cardsData);
-        });
-}
-setInterval(getInitialCards, 20000);
+    .catch((err) => {
+        console.log('Ошибка: ', err);
+    });
 
 //классы-валидаторы для каждой из форм
 const profileFormValidator = new FormValidator(validationList, profileForm);
 const imgFormValidator = new FormValidator(validationList, imgForm);
 const avatarFormValidator = new FormValidator(validationList, avatarForm);
 
-const userInfo = new UserInfo(profileTitle, profileSubtitle);
+const userInfo = new UserInfo(profileTitle, profileSubtitle, avatar);
 
 //функция создания карточки
 function createCard(data) {
@@ -83,15 +73,21 @@ function createCard(data) {
             if (card.isLiked()) {
                 api.removeCardLike(card.id)
                     .then(cardData => card.setLikes(cardData.likes))
+                    .catch((err) => {
+                        console.log('Ошибка: ', err);
+                    });
             } else {
                 api.setCardLike(card.id)
                     .then(cardData => card.setLikes(cardData.likes))
+                    .catch((err) => {
+                        console.log('Ошибка: ', err);
+                    });
             }
         },
-        handleTrashClick: (card) => {
+        handleTrashClick: (card, removeFunc) => {
             //открывает попап подтверждения, куда передаются данные картинки. Затем из этих данных будут использоваться ДОМ элемент
             //  для удаления после подтверждения и айди для отправки на сервер.
-            confirmPopup.open(card);
+            confirmPopup.open(card, removeFunc);
         }
     });
     const cardEl = card.generateCard();
@@ -126,67 +122,75 @@ const cardsList = new Section({
 
 const largeImgPopup = new PopupWithImage('.popup_type_large-image');
 
-const confirmPopup = new PopupWithForm('.popup_type_confirm', {
-    submit: (data) => {
-        data._element.remove()
+const confirmPopup = new PopupWithConfirm('.popup_type_confirm', {
+    submit: (data, removeFunc) => {
+        console.log(data);
         api.deleteCard(data.id)
-            .then(data => console.log(data));
+            .then(() => removeFunc(data._element))
+            .catch((err) => {
+                console.log('Ошибка: ', err);
+            });
     }
 })
 
-const profilePopup = new PopupWithFormTwoRows('.popup_type_profile', profileFormName,
-    profileFormInfo, {
+const profilePopup = new PopupWithForm('.popup_type_profile', {
+    submit: (data, cl) => {
+        renderLoading(true);
+        api.profileRedaction(data)
+            .then((profData) => {
+                userInfo.setUserInfo(profData);
+                cl.close();
+
+            })
+            .catch((err) => {
+                console.log('Ошибка: ', err);
+            })
+            .finally(() => {
+                renderLoading(false);
+            })
+
+    },
+
+})
+
+const addCardPopup = new PopupWithForm('.popup_type_image', {
+    submit: (data, cl) => {
+        renderLoading(true);
+        api.addNewCard(data)
+            .then((cardData) => {
+                const cardEl = createCard(cardData);
+                cardsList.addItemtoTheTop(cardEl);
+                cl.close();
+            })
+            .catch((err) => {
+                console.log('Ошибка: ', err);
+            })
+            .finally(() => {
+                renderLoading(false);
+            })
+    },
+})
+
+
+const avatarPopup = new PopupWithForm('.popup_type_avatar', {
         submit: (data, cl) => {
             renderLoading(true);
-            api.profileRedaction(data.name, data.link)
+            api.updateProfileAvatar(data)
                 .then((profData) => {
-                    profileTitle.textContent = profData.name;
-                    profileSubtitle.textContent = profData.about;
-
+                    userInfo.setUserAvatar(profData);
+                    cl.close();
+                })
+                .catch((err) => {
+                    console.log('Ошибка: ', err);
                 })
                 .finally(() => {
                     renderLoading(false);
-                    cl.close();
-                })
-
-        },
-
-    })
-
-const addCardPopup = new PopupWithFormTwoRows('.popup_type_image', imgFormName,
-    imgFormInfo, {
-        submit: (data, cl) => {
-            renderLoading(true);
-            api.addNewCard(data)
-                .then((cardData) => {
-                    const cardEl = createCard(cardData);
-                    cardsList.addItemtoTheTop(cardEl);
-                    addCardPopup.close();
-                })
-                .finally(() => {
-                    renderLoading(false);
-                    cl.close();
-                })
-        },
-    })
-
-
-const avatarPopup = new PopupWithFormOneRow('.popup_type_avatar', avatarFormLink, {
-        submit: (link, cl) => {
-            renderLoading(true);
-            api.updateProfileAvatar(link)
-                .then((profData) => {
-                    avatar.src = profData.avatar;
-                })
-                .finally(() => {
-                    renderLoading(false);
-                    cl.close();
                 })
         },
     })
     //слушатели
 editButton.addEventListener('click', () => {
-    profilePopup.open({ name: profileTitle.textContent, info: profileSubtitle.textContent });
+    profilePopup.open(userInfo.getUserInfo(profileTitle, profileSubtitle));
 });
 
 addButton.addEventListener('click', () => {
@@ -196,7 +200,7 @@ addButton.addEventListener('click', () => {
 });
 
 avatarButton.addEventListener('click', () => {
-    avatarPopup.open(avatar.src);
+    avatarPopup.open({ avatar: avatar.src });
 });
 
 

@@ -32,7 +32,11 @@ export class Card {
     }
 
     _deleteCard() {
-        this.deleteCardRequest(this);
+        this.deleteCardRequest(this, this._cardRemove);
+    }
+
+    _cardRemove(element) {
+        element.remove();
     }
 
     generateCard() {
