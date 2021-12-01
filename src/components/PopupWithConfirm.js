@@ -14,8 +14,7 @@ export class PopupWithConfirm extends Popup {
     setEventListeners() {
         this._popup.querySelector('.popup__save-button').addEventListener('click', (evt) => {
             evt.preventDefault();
-            console.log('from popupConfirm', this.removeFunc);
-            this._submit(this.data, this);
+            this._submit(this.data);
         });
         super.setEventListeners();
     }

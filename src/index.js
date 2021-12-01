@@ -46,8 +46,6 @@ let userId = '';
 Promise.all([api.getInitialCards(), api.getUserData()])
     .then(([cardsData, userData]) => {
         userId = userData._id;
-        console.log(userData);
-        console.log(cardsData);
         cardsList.renderItems(cardsData);
         userInfo.setUserInfo(userData);
         userInfo.setUserAvatar(userData);
@@ -123,12 +121,12 @@ const cardsList = new Section({
 const largeImgPopup = new PopupWithImage('.popup_type_large-image');
 
 const confirmPopup = new PopupWithConfirm('.popup_type_confirm', {
-    submit: (data, cl) => {
+    submit: (data) => {
         console.log(data);
         api.deleteCard(data.id)
             .then(() => {
-                cl.removeFunc(data._element);
-                cl.close();
+                confirmPopup.removeFunc(data._element);
+                confirmPopup.close();
             })
             .catch((err) => {
                 console.log('Ошибка: ', err);
@@ -137,12 +135,12 @@ const confirmPopup = new PopupWithConfirm('.popup_type_confirm', {
 })
 
 const profilePopup = new PopupWithForm('.popup_type_profile', {
-    submit: (data, cl) => {
+    submit: (data) => {
         renderLoading(true);
         api.profileRedaction(data)
             .then((profData) => {
                 userInfo.setUserInfo(profData);
-                cl.close();
+                profilePopup.close();
 
             })
             .catch((err) => {
@@ -157,13 +155,13 @@ const profilePopup = new PopupWithForm('.popup_type_profile', {
 })
 
 const addCardPopup = new PopupWithForm('.popup_type_image', {
-    submit: (data, cl) => {
+    submit: (data) => {
         renderLoading(true);
         api.addNewCard(data)
             .then((cardData) => {
                 const cardEl = createCard(cardData);
                 cardsList.addItemtoTheTop(cardEl);
-                cl.close();
+                addCardPopup.close();
             })
             .catch((err) => {
                 console.log('Ошибка: ', err);
@@ -176,12 +174,12 @@ const addCardPopup = new PopupWithForm('.popup_type_image', {
 
 
 const avatarPopup = new PopupWithForm('.popup_type_avatar', {
-        submit: (data, cl) => {
+        submit: (data) => {
             renderLoading(true);
             api.updateProfileAvatar(data)
                 .then((profData) => {
                     userInfo.setUserAvatar(profData);
-                    cl.close();
+                    avatarPopup.close();
                 })
                 .catch((err) => {
                     console.log('Ошибка: ', err);
